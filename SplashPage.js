@@ -11,9 +11,9 @@ import {
 export default class SplashPage extends Component {
   render() {
     return (
-      <Image style={styles.backgroundImage} source={{uri: 'http://www.planetware.com/photos-large/CAY/caribbean-best-beaches-pink-sand-beach.jpg'}}>
+      <Image style={styles.backgroundImage} source={{uri: 'http://esq.h-cdn.co/assets/cm/15/06/54d3cdbba4f40_-_esq-01-bar-lgn.jpg'}}>
         <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'white', fontFamily: 'sans-serif-condensed', fontSize: 30}}>Welcome</Text>
+            <Text style={{color: 'E6E6E6', fontFamily: 'serif', fontSize: 75}}>hmu</Text>
             <View style={{flexDirection: 'row'}}>
               <TouchableHighlight style={[styles.authButton, {backgroundColor: 'rgba(224,255,255, 0.8)'}]} onPress={this._navigate.bind(this, "in")}>
                 <Text style={styles.authButtonText}>Sign in</Text>
@@ -29,11 +29,13 @@ export default class SplashPage extends Component {
   _navigate = (property) => {
     if(property == "in"){
       this.props.navigator.push({
-        id: "signin"
+        id: "signin",
+        transitionType: "PushFromLeft"
       })
     }else if(property == "up"){
       this.props.navigator.push({ 
-        id: "signup"
+        id: "signup",
+        transitionType: "PushFromLeft"
       })
     }
   }

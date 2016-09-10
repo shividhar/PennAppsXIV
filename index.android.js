@@ -12,16 +12,16 @@ import {
   Navigator,
   StyleSheet,
   BackAndroid,
-  Alert
+  Alert,
+  Animated
 } from 'react-native';
 
 import SplashPage from './SplashPage';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
+import Animation from './animation';
 
 var _navigator;
-
-Navigator.SceneConfigs.FloatFromLeft;
 
 BackAndroid.addEventListener('hardwareBackPress', () => {
   if (_navigator.getCurrentRoutes().length === 1  ) {
@@ -37,22 +37,24 @@ class AwesomeProject extends Component {
         <Navigator
           style={{ flex:1 }}
           initialRoute={{id: "splash"}}
+          configureScene={() => Navigator.SceneConfigs.FadeAndroid}
           renderScene={this.navigatorRenderScene}
         />
     )
   }
 
-    navigatorRenderScene(route, navigator){
-      _navigator = navigator;
-      switch(route.id) {
-        case ("splash"):
-          return(<SplashPage navigator={navigator}/>)
-        case("signin"):
-          return(<SignIn navigator={navigator} />)
-        case("signup"):
-          return(<SignUp navigator={navigator} />)
-      }
+
+  navigatorRenderScene(route, navigator){
+    _navigator = navigator;
+    switch(route.id) {
+      case ("splash"):
+        return(<SplashPage navigator={navigator}/>)
+      case("signin"):
+        return(<SignIn navigator={navigator} />)
+      case("signup"):
+        return(<Animation navigator={navigator} />) 
     }
+  }
 }
 var styles = StyleSheet.create({
   container: {
