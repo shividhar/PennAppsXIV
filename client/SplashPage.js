@@ -17,7 +17,7 @@ export default class SplashPage extends Component {
         </View>
         <View style={{flexDirection: 'row', bottom: 0}}>
               <TouchableHighlight style={[styles.authButton, {backgroundColor: 'rgba(224,255,255, 0.8)'}]} onPress={this._navigate.bind(this, "in")}>
-                <Text style={styles.authButtonText}>Log in</Text>
+                <Text style={styles.authButtonText}>Login</Text>
               </TouchableHighlight>
               <TouchableHighlight style={[styles.authButton, {backgroundColor: 'rgba(127,225,212, 0.8)'}]} onPress={this._navigate.bind(this, "up")}>
                 <Text style={styles.authButtonText}>Sign up</Text>

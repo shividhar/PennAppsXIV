@@ -17,7 +17,7 @@ export default class SignUp extends Component {
     this.state = {
       username: '',
       password: '',
-      confirmPassword: ''
+      phoneNumber: ''
     }
   }
 
@@ -42,23 +42,23 @@ export default class SignUp extends Component {
               secureTextEntry={true}
               onChangeText={(password) => this.setState({password})}
               value={this.state.password}
-              onSubmitEditing={(event) => {this.refs.confirmPassword.focus();}}
+              onSubmitEditing={(event) => {this.refs.phoneNumber.focus();}}
             />
           </View>
           <View style={styles.inputFieldHolder}>
              <TextInput
-              ref="confirmPassword"
-              placeholder="Confim Password"
+              ref="phoneNumber"
+              placeholder="Phone Number"
               style={styles.inputFields}
-              secureTextEntry={true}
-              onChangeText={(confirmPassword) => this.setState({confirmPassword})}
-              value={this.state.confirmPassword}
+              onChangeText={(phoneNumber) => this.setState({phoneNumber})}
+              value={this.state.phoneNumber}
+              keyboardType = 'numeric'
               onSubmitEditing={this._submitForm}
             />
           </View>
           <View style={styles.submitButtonHolder}>
             <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}>
-              <Text style={{fontSize: 15, color: 'white'}}>Login</Text>
+              <Text style={{fontSize: 15, color: 'white'}}>Sign up</Text>
             </TouchableHighlight>
           </View>
         </View>
@@ -69,35 +69,32 @@ export default class SignUp extends Component {
     _submitForm = () => {
       var username = this.state.username;
       var password = this.state.password;
-      var confirmPassword = this.state.confirmPassword;
+      var phoneNumber = this.state.phoneNumber;
 
-      if(username != "" && password != "" && confirmPassword != ""){
-        if(password == confirmPassword){
-            fetch("http://10.103.231.97:3000/signup", {
-              method: "POST",
-              headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                username: username,
-                password: password,
-              })
+      if(typeof(username) != undefined && typeof(username) != undefined && username != "" && typeof(password) != undefined && password != "" && phoneNumber != ""){
+          fetch("http://10.103.231.97:3000/signup", {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: username,
+              password: password,
+              phoneNumber: phoneNumber
             })
-          .then((response) => response.json())
-          .then((responseJson) => {
-            if(responseJson.res){
-              //CHANGE THIS TO MAIN PAGE
-              this.props.navigator.replace({"id": "signin"});
-              //CHANGE THIS TO MAIN PAGE
-            }else{
-              Alert.alert("Sorry, username taken.")
-            }
           })
-          .done()    // do some stuff here…
-        }else{
-          Alert.alert("Please make sure both password fields are equal.")
-        }
+        .then((response) => response.json())
+        .then((responseJson) => {
+          if(responseJson.res){
+            //CHANGE THIS TO MAIN PAGE
+            this.props.navigator.replacePreviousAndPop({"id": "homescreen"});
+            //CHANGE THIS TO MAIN PAGE
+          }else{
+            Alert.alert("Sorry, username taken.")
+          }
+        })
+        .done()    // do some stuff here…
       }else{
         Alert.alert("Please fill in all fields.")
       }
