@@ -14,7 +14,7 @@ export default class CreateEventButton extends Component {
 	render() {
 	    return (
 	    	<TouchableHighlight onPress={this._onPressButton}>
-        		<Text>Button</Text>
+        		<Text>Hit Up Friends</Text>
      		</TouchableHighlight>
 	    );
   	}

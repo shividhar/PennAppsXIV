@@ -14,7 +14,7 @@ export default class JoinEventButton extends Component {
 	render() {
 	    return (
 	    	<TouchableHighlight onPress={this._onPressButton}>
-        		<Text>Button</Text>
+        		<Text>Join Friends</Text>
      		</TouchableHighlight>
 	    );
   	}
