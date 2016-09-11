@@ -19,6 +19,13 @@ import SplashPage from './SplashPage';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 
+import HomeScreen from './homeScreen';
+
+import CreateEventScreen from './createEventScreen';
+import ViewAllFriendsScreen from './viewAllFriendsScreen';
+import ViewAllEventsScreen from './viewAllEventsScreen';
+
+
 var _navigator;
 
 Navigator.SceneConfigs.FloatFromLeft;
@@ -51,6 +58,14 @@ class AwesomeProject extends Component {
           return(<SignIn navigator={navigator} />)
         case("signup"):
           return(<SignUp navigator={navigator} />)
+        case("homescreen"):
+          return(<homeScreen navigator={navigator} />)
+        case("createEvent"):
+          return(<homeScreen navigator={navigator} />)
+        case("viewEvents"):
+          return(<homeScreen navigator={navigator} />)
+        case("viewFriends"):
+          return(<homeScreen navigator={navigator} />)
       }
     }
 }

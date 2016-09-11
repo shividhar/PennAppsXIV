@@ -63,6 +63,9 @@ export default class SignIn extends Component {
         .then((responseJson) => {
           if(responseJson.res){
             Alert.alert("Signin Successful!");
+            this.props.navigator.push({
+                id: "homescreen"
+              })
           }else{
             Alert.alert("Username or password incorrect")
           }
