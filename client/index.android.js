@@ -46,7 +46,12 @@ class AwesomeProject extends Component {
         <Navigator
           style={{ flex:1 }}
           initialRoute={{id: "splash"}}
-          configureScene={() => Navigator.SceneConfigs.FadeAndroid}
+          configureScene={(route) => {
+            if (route.sceneConfig) {
+              return route.sceneConfig;
+            }
+            return Navigator.SceneConfigs.FloatFromRight;
+          }} 
           renderScene={this.navigatorRenderScene}
           // navigationBar={
           //   <NavigationBar
@@ -62,18 +67,19 @@ class AwesomeProject extends Component {
       switch(route.id) {
         case ("splash"):
           return(<SplashPage navigator={navigator}/>)
+          // return(<HomeScreen navigator={navigator} />)
         case("signin"):
           return(<SignIn navigator={navigator} />)
         case("signup"):
           return(<SignUp navigator={navigator} />)
         case("homescreen"):
-          return(<homeScreen navigator={navigator} />)
+          return(<HomeScreen navigator={navigator} />)
         case("createEvent"):
-          return(<homeScreen navigator={navigator} />)
+          return(<HomeScreen navigator={navigator} />)
         case("viewEvents"):
-          return(<homeScreen navigator={navigator} />)
+          return(<HomeScreen navigator={navigator} />)
         case("viewFriends"):
-          return(<homeScreen navigator={navigator} />)
+          return(<HomeScreen navigator={navigator} />)
       }
     }
   
