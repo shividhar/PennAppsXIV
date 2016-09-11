@@ -87,7 +87,9 @@ export default class SignUp extends Component {
           .then((response) => response.json())
           .then((responseJson) => {
             if(responseJson.res){
+              //CHANGE THIS TO MAIN PAGE
               this.props.navigator.replace({"id": "signin"});
+              //CHANGE THIS TO MAIN PAGE
             }else{
               Alert.alert("Sorry, username taken.")
             }
