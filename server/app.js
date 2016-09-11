@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs');
 var hat = require('hat');
 var rack = hat.rack(16, 16, 2);
 var bodyParser = require('body-parser');
+var https = require('https');
 
 var express = require('express');
 var app = express();
