@@ -79,7 +79,7 @@ export default class SignUp extends Component {
               this.props.navigator.pop();
               Alert.alert("Signin Successful")
               this.props.navigator.push({
-                id: "signin"
+                id: "homescreen"
               })
             }else{
               Alert.alert("Sorry, username taken.")

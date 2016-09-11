@@ -21,6 +21,13 @@ import SignUp from './SignUp';
 import SignIn from './SignIn';
 import Animation from './animation';
 
+import HomeScreen from './homeScreen';
+
+import CreateEventScreen from './createEventScreen';
+import ViewAllFriendsScreen from './viewAllFriendsScreen';
+import ViewAllEventsScreen from './viewAllEventsScreen';
+
+
 var _navigator;
 
 BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -43,18 +50,26 @@ class AwesomeProject extends Component {
     )
   }
 
-
-  navigatorRenderScene(route, navigator){
-    _navigator = navigator;
-    switch(route.id) {
-      case ("splash"):
-        return(<SplashPage navigator={navigator}/>)
-      case("signin"):
-        return(<SignIn navigator={navigator} />)
-      case("signup"):
-        return(<Animation navigator={navigator} />) 
+    navigatorRenderScene(route, navigator){
+      _navigator = navigator;
+      switch(route.id) {
+        case ("splash"):
+          return(<SplashPage navigator={navigator}/>)
+        case("signin"):
+          return(<SignIn navigator={navigator} />)
+        case("signup"):
+          return(<SignUp navigator={navigator} />)
+        case("homescreen"):
+          return(<homeScreen navigator={navigator} />)
+        case("createEvent"):
+          return(<homeScreen navigator={navigator} />)
+        case("viewEvents"):
+          return(<homeScreen navigator={navigator} />)
+        case("viewFriends"):
+          return(<homeScreen navigator={navigator} />)
+      }
     }
-  }
+  
 }
 var styles = StyleSheet.create({
   container: {
