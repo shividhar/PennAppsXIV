@@ -16,39 +16,39 @@ export default class CreateEventScreen extends Component {
 		//Change id to go back to homeScreen
 	}
 
-    _submitForm = () => { //WE NEED TO CHANGE THIS SOON TO BECOME SUBMIT EVENT INSTEAD OF SUBMIT ACCOUNT INFO
-    	var username = this.state.username;
-    	var password = this.state.password;
-    	var confirmPassword = this.state.confirmPassword;
+    _submitForm = () => { 
+    	var nameOfEvent = this.state.nameOfEvent;
+    	var location = this.state.location;
+    	var date = this.state.date;
+    	var description = this.state.description;
 
-		if(username != "" && password != "" && confirmPassword != ""){
-			if(password == confirmPassword){
-			    fetch("http://10.103.231.97:3000/signup", {
-			      method: "POST",
-			      headers: {
-			        'Accept': 'application/json',
-			        'Content-Type': 'application/json',
-			      },
-			      body: JSON.stringify({
-			        username: username,
-			        password: password,
-			      })
-			    })
-			  .then((response) => response.json())
-			  .then((responseJson) => {
-			    if(responseJson.res){
-			      //CHANGE THIS TO MAIN PAGE
-			      this.props.navigator.replacePreviousAndPop({"id": "signin"});
-			      //CHANGE THIS TO MAIN PAGE
-			    }else{
-			      Alert.alert("Sorry, username taken.")
-			    }
-			  })
-			  .done()    // do some stuff here…
-			}else{
-				Alert.alert("Please fill in all fields.")
-			}
+		if(nameOfEvent != "" && date != "" && location != ""){
+			
+		    fetch("http://10.103.231.97:3000/events/create", {
+		      method: "POST",
+		      headers: {
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		      },
+		      body: JSON.stringify({
+		      	username: "shivansh",
+		        nameOfEvent: nameOfEvent,
+		        location: location,
+		        date: date,
+		        description: description
+		      })
+		    })
+		  .then((response) => response.json())
+		  .then((responseJson) => {
+		    Alert.alert(responseJson.message)
+		    //go to the event page
+		  })
+		  .done()    
 		}
+		else{
+			Alert.alert("Please fill in all fields.")
+		}
+		
 	};
 
 	render() {

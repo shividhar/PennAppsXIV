@@ -87,15 +87,17 @@ export default class SignUp extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           if(responseJson.res){
-            //CHANGE THIS TO MAIN PAGE
-            this.props.navigator.replacePreviousAndPop({"id": "homescreen"});
-            //CHANGE THIS TO MAIN PAGE
-          }else{
+            global.username = username;
+            this.props.navigator.push({
+            id: "homescreen",
+            transitionType: "PushFromLeft"
+          })}
+          else{
             Alert.alert("Sorry, username taken.")
           }
-        })
-        .done()    // do some stuff here…
-      }else{
+        
+        }).done()    // do some stuff here…
+      else{
         Alert.alert("Please fill in all fields.")
       }
   };

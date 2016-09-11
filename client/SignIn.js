@@ -73,10 +73,13 @@ export default class SignIn extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           if(responseJson.res){
-            this.props.navigator.replacePreviousAndPop({
-              id: "homescreen"
-            })
-          }else{
+            global.username = username;
+            this.props.navigator.push({
+            id: "homescreen",
+            transitionType: "PushFromLeft"
+          })}
+
+          else{
             Alert.alert("Username or password incorrect")
           }
         })

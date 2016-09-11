@@ -75,7 +75,7 @@ class AwesomeProject extends Component {
         case("homescreen"):
           return(<HomeScreen navigator={navigator} />)
         case("createEvent"):
-          return(<HomeScreen navigator={navigator} />)
+          return(<CreateEventScreen navigator={navigator} />)
         case("joinEvent"):
           return(<JoinEventScreen navigator={navigator} />)
         case("viewEvents"):
