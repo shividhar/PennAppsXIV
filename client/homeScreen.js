@@ -4,6 +4,7 @@ import { AppRegistry, Text, View } from 'react-native';
 import CreateEventButton from './createEventButton';
 import ViewEventButton from './viewEventsButton';
 import JoinEventButton from './joinEventButton';
+import LogOutButton from './logOutButton';
 
 export default class HomeScreen extends Component {
 	render() {
@@ -13,6 +14,7 @@ export default class HomeScreen extends Component {
 	      		<CreateEventButton />
 	      		<ViewEventButton />
 	      		<JoinEventButton />
+	      		<LogOutButton />
 	      	</View>
 	    );
   	}
