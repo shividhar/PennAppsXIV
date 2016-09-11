@@ -5,8 +5,7 @@ var hat = require('hat');
 var rack = hat.rack(16, 16, 2);
 var bodyParser = require('body-parser');
 var https = require('https');
-var nexmoConfig = requires('config');
-
+var nexmoConfig = require('./config');
 var express = require('express');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,8 +14,11 @@ var serv = require('http').Server(app);
 
 app.post('/signup', function(req, res){
 	console.log("SIGNUP: ", req.body);
-	if (req.body.username && req.body.password && req.body.phoneNumber) 
+	if (req.body.username.length>0 && req.body.password.length>0 && req.body.phoneNumber.length>0) 
 		isUsernameTaken(req.body.username, req.body.password, req.body.phoneNumber, res);
+	else{
+		res.json({res:0});
+	}
 });
 
 app.post('/signin', function(req, res){
@@ -25,45 +27,52 @@ app.post('/signin', function(req, res){
 		isValidPassword(req.body.username, req.body.password, res);
 });
 
-app.post('events/notify/:id', function (req, res) {
+app.post('/events/notify/:id', function (req, resp) {
 	console.log("NOTIFY: ", req.body);
 	var contacts = JSON.parse(req.body.contacts);
-	for (int i = 0; i < contacs.length; i++) {
-		var data = JSON.stringify({
-			api_key: nexmoConfig.API_KEY,
-			api_secret: nexmoConfig.API_SECRET,
-			to: contacts.number,
-			from: nexmoConfig.ORIGIN_NUMBER,
-			text: 'You got invited fam'
-		});
+	db.event.find({id:req.params.id}, function(err, res){
+		if (res.length > 0){
+			var event = res[0];
+			for (var i = 0; i < contacts.length; i++) {
+				var data = JSON.stringify({
+					api_key: nexmoConfig.API_KEY,
+					api_secret: nexmoConfig.API_SECRET,
+					to: contacts[i].number,
+					from: nexmoConfig.ORIGIN_NUMBER,
+					text: event.host + " has HIT YOU UP!\n\nUse code "+event.id+" on HMU to check it out.\n",
+				});
 
-		var options = {
-			host: nexmoConfig.SMS_HOST,
-			path: nexmoConfig.SMS_PATH,
-			port: nexmoConfig.SMS_PORT,
-			method: 'POST',
-			headers: {
-   				'Content-Type': 'application/json',
-   				'Content-Length': Buffer.byteLength(data)
+				var options = {
+					host: nexmoConfig.SMS_HOST,
+					path: nexmoConfig.SMS_PATH,
+					port: nexmoConfig.SMS_PORT,
+					method: 'POST',
+					headers: {
+		   				'Content-Type': 'application/json',
+		   				'Content-Length': Buffer.byteLength(data)
+					}
+				};
+				var req = https.request(options);
+				req.write(data);
+				req.end();
+
+				var responseData = '';
+				req.on('response', function(res){
+					res.on('data', function(chunk){
+				  		responseData += chunk;
+				  	});
+
+				 	res.on('end', function(){
+				   		console.log(JSON.parse(responseData));
+				 	});
+				});
 			}
-		};
-
-		var req = https.request(options);
-		req.write(data);
-		req.end();
-
-		var responseData = '';
-		req.on('response', function(res){
-			res.on('data', function(chunk){
-		  		responseData += chunk;
-		  	});
-
-		 	res.on('end', function(){
-		   		console.log(resp.json(JSON.parse(responseData)));
-		 	});
-		});
-	}
-	resp.end("done sending sms");
+			resp.end("done sending sms");
+		}
+		else{
+			return resp.json({message:"No such event"});
+		}
+	});
 });
 
 app.get('/user/:username/events', function(req, resp){
