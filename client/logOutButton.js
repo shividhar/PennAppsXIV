@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, View, Stylesheet, TouchableHighlight } from 'react-native';
 
-export default class CreateEventButton extends Component {
+export default class LogOutButton extends Component {
 	constructor() {
 		super();
-		this._onPressButton = this._onPressButton.bind(this);
 	}
-	_onPressButton() {
+
+	returnHome() {
 		console.log("Start New Event");
 		//Change navigator id to createEvents
-
 	}
+
 	render() {
 	    return (
-	    	<TouchableHighlight onPress={this._onPressButton}>
-        		<Text>Hit Up Friends</Text>
-     		</TouchableHighlight>
+			<TouchableHighlight onPress={this.returnHome}>
+				<Text>Log Out</Text>
+			</TouchableHighlight>
 	    );
   	}
 } 
+
+

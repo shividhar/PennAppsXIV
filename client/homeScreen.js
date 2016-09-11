@@ -3,9 +3,24 @@ import { AppRegistry, Text, View, Image, StyleSheet } from 'react-native';
 
 import CreateEventButton from './createEventButton';
 import ViewEventButton from './viewEventsButton';
-import ViewFriendButton from './viewFriendsButton';
+import JoinEventButton from './joinEventButton';
+import LogOutButton from './logOutButton';
 
 export default class HomeScreen extends Component {
+	_navigate = (property) => {
+	    if(property == "in"){
+	    	this.props.navigator.push({
+	        id: "createEvent",
+	        transitionType: "PushFromLeft"
+	      })
+	    }
+	    else if(property == "up"){
+	      this.props.navigator.push({ 
+	        id: "signup",
+	        transitionType: "PushFromRight"
+	      })
+	    }
+	}
 	render() {
 	    return (
 	    	<View style={{flex: 1}}>
@@ -21,7 +36,14 @@ export default class HomeScreen extends Component {
 		      		<View style={[styles.viewButtons, {backgroundColor: 'rgb(92,184,92)'}]}>
 		      		</View>
 		      	</Image>
-	      	</View>
+		     </View>
+	    	/*<View style={{alignItems: "center"}}>
+	      		<Text>Hello world!</Text>
+	      		<CreateEventButton />
+	      		<ViewEventButton />
+	      		<JoinEventButton />
+	      		<LogOutButton />
+	      	</View>*/
 	    );
   	}
 } 

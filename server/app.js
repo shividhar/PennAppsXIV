@@ -5,6 +5,7 @@ var hat = require('hat');
 var rack = hat.rack(16, 16, 2);
 var bodyParser = require('body-parser');
 var https = require('https');
+var nexmoConfig = requires('config');
 
 var express = require('express');
 var app = express();
@@ -14,14 +15,55 @@ var serv = require('http').Server(app);
 
 app.post('/signup', function(req, res){
 	console.log("SIGNUP: ", req.body);
-	if (req.body.username && req.body.password) 
-		isUsernameTaken(req.body.username, req.body.password, res);
+	if (req.body.username && req.body.password && req.body.phoneNumber) 
+		isUsernameTaken(req.body.username, req.body.password, req.body.phoneNumber, res);
 });
 
 app.post('/signin', function(req, res){
 	console.log("SIGNIN: ", req.body);
 	if (req.body.username && req.body.password)
 		isValidPassword(req.body.username, req.body.password, res);
+});
+
+app.post('events/notify/:id', function (req, res) {
+	console.log("NOTIFY: ", req.body);
+	var contacts = JSON.parse(req.body.contacts);
+	for (int i = 0; i < contacs.length; i++) {
+		var data = JSON.stringify({
+			api_key: nexmoConfig.API_KEY,
+			api_secret: nexmoConfig.API_SECRET,
+			to: contacts.number,
+			from: nexmoConfig.ORIGIN_NUMBER,
+			text: 'You got invited fam'
+		});
+
+		var options = {
+			host: nexmoConfig.SMS_HOST,
+			path: nexmoConfig.SMS_PATH,
+			port: nexmoConfig.SMS_PORT,
+			method: 'POST',
+			headers: {
+   				'Content-Type': 'application/json',
+   				'Content-Length': Buffer.byteLength(data)
+			}
+		};
+
+		var req = https.request(options);
+		req.write(data);
+		req.end();
+
+		var responseData = '';
+		req.on('response', function(res){
+			res.on('data', function(chunk){
+		  		responseData += chunk;
+		  	});
+
+		 	res.on('end', function(){
+		   		console.log(resp.json(JSON.parse(responseData)));
+		 	});
+		});
+	}
+	resp.end("done sending sms");
 });
 
 app.get('/user/:username/events', function(req, resp){
@@ -137,21 +179,21 @@ var isValidPassword = function(username, password, resp){
 	});
 }
 
-var isUsernameTaken = function(username, password, resp){
+var isUsernameTaken = function(username, password, phone, resp){
 	db.account.find({username:username},function(err,res){
 		if(res.length > 0)
 			return resp.json({"res": 0});
 		else{
-			addUser(username, password);
+			addUser(username, password, phone);
 			return resp.json({"res": 1});
 		}
 	});
 }
 
-var addUser = function(username, password){
+var addUser = function(username, password, phone){
 	var userSalt = bcrypt.genSaltSync(10);
 	var hashedPassword = bcrypt.hashSync(password, userSalt);
-	db.account.insert({username:username, password:hashedPassword, salt:userSalt},function(err){console.log(err)});
+	db.account.insert({username:username, phone:phone, password:hashedPassword, salt:userSalt},function(err){console.log(err)});
 }
 
 var createEvent = function(username, name, location, time){

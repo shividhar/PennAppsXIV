@@ -26,7 +26,7 @@ import SignIn from './SignIn';
 import HomeScreen from './homeScreen';
 
 import CreateEventScreen from './createEventScreen';
-import ViewAllFriendsScreen from './viewAllFriendsScreen';
+import JoinEventScreen from './joinEventScreen';
 import ViewAllEventsScreen from './viewAllEventsScreen';
 
 
@@ -76,10 +76,11 @@ class AwesomeProject extends Component {
           return(<HomeScreen navigator={navigator} />)
         case("createEvent"):
           return(<HomeScreen navigator={navigator} />)
+        case("joinEvent"):
+          return(<JoinEventScreen navigator={navigator} />)
         case("viewEvents"):
-          return(<HomeScreen navigator={navigator} />)
-        case("viewFriends"):
-          return(<HomeScreen navigator={navigator} />)
+          return(<ViewAllEventsScreen navigator={navigator} />)
+
       }
     }
   
