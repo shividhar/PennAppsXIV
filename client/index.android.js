@@ -24,7 +24,7 @@ import Animation from './animation';
 import HomeScreen from './homeScreen';
 
 import CreateEventScreen from './createEventScreen';
-import ViewAllFriendsScreen from './viewAllFriendsScreen';
+import JoinEventScreen from './joinEventScreen';
 import ViewAllEventsScreen from './viewAllEventsScreen';
 
 
