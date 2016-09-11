@@ -19,21 +19,22 @@ export default class JoinEventScreen extends Component {
 
 	render() {
 		return(
-			<View style={{alignItems: "center"}}>
-	          <View style={styles.inputFieldHolder}>
-	             <TextInput
-	              placeholder="Event Code"
-	              style={[styles.inputFields, {alignItems:"center"}]}
-	              onChangeText={(eventCode) => this.setState({eventCode})}
-	              value={this.state.eventCode}
-	             />
-	          </View>
-	          
-	          <View style={styles.submitButtonHolder}>
-	            <TouchableHighlight style={styles.submitButton} onPress={this._submitJoinForm}> 
-	              <Text style={{fontSize: 15, color: 'black'}}>Join Event</Text>
-	            </TouchableHighlight> 
-	          </View>
+			<View style={styles.background}>
+		        <View style={styles.parentFieldHolder}>
+		          <View style={styles.inputFieldHolder}>
+		             <TextInput
+		              placeholder="Event Code"
+		              onChangeText={(eventCode) => this.setState({eventCode})}
+		              value={this.state.eventCode}
+		             />
+		          </View>
+		          
+		          <View style={styles.submitButtonHolder}>
+		            <TouchableHighlight style={styles.submitButton} onPress={this._submitJoinForm}> 
+		              <Text style={styles.joinText}>Join Event</Text>
+		            </TouchableHighlight> 
+		          </View>
+		        </View>
 	        </View>
         )
 	}
@@ -58,7 +59,10 @@ export default class JoinEventScreen extends Component {
 			.then((response) => response.json())
 			.then((responseJson) => {
 				if(responseJson.message.indexOf("Successfully joined event") >= 0){
-				  this.props.navigator.replace({"id": "eventPage"});
+				  this.props.navigator.replacePreviousAndPop({
+				  	"id": "eventPage",
+				  	"sceneConfig": Navigator.SceneConfigs.HorizontalSwipeJump
+				  });
 				  //go to event page
 				}
 				else if(responseJson.message.indexOf("User already joined event") >= 0){
@@ -77,5 +81,41 @@ export default class JoinEventScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-
+	background: {
+		flex: 1,
+		width: undefined,
+		height: undefined,
+		backgroundColor:'rgba(162,0,255, 1)',
+		justifyContent: 'center'
+	},
+	parentFieldHolder: {
+		flex: 1,
+		width: undefined,
+		height: undefined,
+		margin: 10,
+		backgroundColor: "white",
+		borderRadius: 5,
+		borderWidth: 1,
+		borderColor: "#DDA0DD",
+		alignItems: "center",
+		justifyContent: "center"
+	},
+	inputFieldHolder: {
+		justifyContent: "center",
+		alignSelf: 'stretch',
+	},
+	submitButtonHolder: {
+		alignSelf: 'stretch',
+		borderWidth: 1,
+		borderColor: '#FFA500'
+	},
+	submitButton: {
+		height: 40,
+		justifyContent: "center",
+		backgroundColor: "#f47835"
+	},
+	joinText: {
+		fontSize: 20,
+		textAlign: "center"
+	}
 })

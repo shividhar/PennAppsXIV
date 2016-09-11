@@ -66,8 +66,8 @@ class AwesomeProject extends Component {
       _navigator = navigator;
       switch(route.id) {
         case ("splash"):
-          return(<SplashPage navigator={navigator}/>)
-          // return(<HomeScreen navigator={navigator} />)
+          // return(<SplashPage navigator={navigator}/>)
+          return(<HomeScreen navigator={navigator} />)
         case("signin"):
           return(<SignIn navigator={navigator} />)
         case("signup"):

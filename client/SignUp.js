@@ -88,7 +88,7 @@ export default class SignUp extends Component {
         .then((responseJson) => {
           if(responseJson.res){
             global.username = username;
-            this.props.navigator.push({
+            this.props.navigator.replacePreviousAndPop({
             id: "homescreen",
             transitionType: "PushFromLeft"
           })}

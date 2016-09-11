@@ -10,13 +10,13 @@ export default class HomeScreen extends Component {
 	render() {
 	    return (
 			<View style={{flex: 1}}>
-				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(167,173,186, 0.6)'}]} onPress={this._navigate.bind(this, "create")}>
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(0,174,219, 0.6)'}]} onPress={this._navigate.bind(this, "create")}>
 					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
 				</TouchableHighlight>
-				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(101,115,126, 0.6)'}]} onPress={this._navigate.bind(this, "join")}>
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(244,120,53, 0.6)'}]} onPress={this._navigate.bind(this, "join")}>
 					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
-				</TouchableHighlight>
-				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(79,91,102, 0.6)'}]} onPress={this._navigate.bind(this, "view")}>
+				</TouchableHighlight> 
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(142,193,39, 0.6)'}]} onPress={this._navigate.bind(this, "view")}>
 					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
 				</TouchableHighlight>
 			</View>
