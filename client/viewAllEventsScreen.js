@@ -8,6 +8,7 @@ export default class ViewAllEventsScreen extends Component {
 	render() {
 		return (
 			//Add list
+			
 			<View style={styles.submitButtonHolder}>
             	<TouchableHighlight style={styles.submitButton} onPress={this._submitForm}>
             		<Text style={{fontSize: 15, color: 'white'}}>Join Event</Text>

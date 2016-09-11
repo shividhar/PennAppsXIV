@@ -70,10 +70,11 @@ class AwesomeProject extends Component {
           return(<homeScreen navigator={navigator} />)
         case("createEvent"):
           return(<homeScreen navigator={navigator} />)
+        case("joinEvent"):
+          return(<joinEvent navigator={navigator} />)
         case("viewEvents"):
           return(<homeScreen navigator={navigator} />)
-        case("viewFriends"):
-          return(<homeScreen navigator={navigator} />)
+
       }
     }
   
