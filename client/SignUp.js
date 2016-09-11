@@ -72,7 +72,7 @@ export default class SignUp extends Component {
       var phoneNumber = this.state.phoneNumber;
 
       if(typeof(username) != undefined && typeof(username) != undefined && username != "" && typeof(password) != undefined && password != "" && phoneNumber != ""){
-          fetch("http://10.103.231.97:3000/signup", {
+        fetch("http://10.103.231.97:3000/signup", {
             method: "POST",
             headers: {
               'Accept': 'application/json',
@@ -87,14 +87,16 @@ export default class SignUp extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           if(responseJson.res){
-            //CHANGE THIS TO MAIN PAGE
-            this.props.navigator.replacePreviousAndPop({"id": "homescreen"});
-            //CHANGE THIS TO MAIN PAGE
-          }else{
+            global.username = username;
+            this.props.navigator.push({
+            id: "homescreen",
+            transitionType: "PushFromLeft"
+          })}
+          else{
             Alert.alert("Sorry, username taken.")
           }
-        })
-        .done()    // do some stuff here…
+        
+        }).done()    // do some stuff here…
       }else{
         Alert.alert("Please fill in all fields.")
       }

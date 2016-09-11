@@ -17,45 +17,6 @@ export default class JoinEventScreen extends Component {
 		}
 	}
 
-	returnHome(){
-		//Change id to go back to homeScreen
-	}
-
-    _submitForm = () => { //WE NEED TO CHANGE THIS SOON TO BECOME SUBMIT CODE INSTEAD OF SUBMIT ACCOUNT INFO
-    	var username = this.state.username;
-    	var password = this.state.password;
-    	var confirmPassword = this.state.confirmPassword;
-
-		if(username != "" && password != "" && confirmPassword != ""){
-			if(password == confirmPassword){
-			    fetch("http://10.103.231.97:3000/signup", {
-			      method: "POST",
-			      headers: {
-			        'Accept': 'application/json',
-			        'Content-Type': 'application/json',
-			      },
-			      body: JSON.stringify({
-			        username: username,
-			        password: password,
-			      })
-			    })
-			  .then((response) => response.json())
-			  .then((responseJson) => {
-			    if(responseJson.res){
-			      //CHANGE THIS TO MAIN PAGE
-			      this.props.navigator.replace({"id": "signin"});
-			      //CHANGE THIS TO MAIN PAGE
-			    }else{
-			      Alert.alert("Sorry, username taken.")
-			    }
-			  })
-			  .done()    // do some stuff here…
-			}else{
-				Alert.alert("Please fill in all fields.")
-			}
-		}
-	};
-
 	render() {
 		return(
 			<View style={{alignItems: "center"}}>
@@ -69,13 +30,50 @@ export default class JoinEventScreen extends Component {
 	          </View>
 	          
 	          <View style={styles.submitButtonHolder}>
-	            <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}> 
+	            <TouchableHighlight style={styles.submitButton} onPress={this._submitJoinForm}> 
 	              <Text style={{fontSize: 15, color: 'black'}}>Join Event</Text>
 	            </TouchableHighlight> 
 	          </View>
 	        </View>
         )
 	}
+
+    _submitJoinForm = () => { //WE NEED TO CHANGE THIS SOON TO BECOME SUBMIT CODE INSTEAD OF SUBMIT ACCOUNT INFO
+    	var eventCode = this.state.eventCode;
+    	var username = global.username;
+
+		if(eventCode != ""){
+			var apiUrl = "http://10.103.231.97:3000/events/join/" + eventCode.toString();
+
+		    fetch(apiUrl, {
+		      method: "POST",
+		      headers: {
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		      },
+		      body: JSON.stringify({
+		        username: username
+		      })
+		    })
+			.then((response) => response.json())
+			.then((responseJson) => {
+				if(responseJson.message.indexOf("Successfully joined event") >= 0){
+				  this.props.navigator.replace({"id": "eventPage"});
+				  //go to event page
+				}
+				else if(responseJson.message.indexOf("User already joined event") >= 0){
+				  Alert.alert("You have already joined the event.");
+				}
+				else if(responseJson.message.indexOf("Did not find any event with specified id") >= 0){
+				  Alert.alert("Please enter a valid event code.");
+				}
+			})
+			.done()    // do some stuff here…
+		}else
+		{
+			Alert.alert("Please enter a code")
+		}
+	};
 }
 
 const styles = StyleSheet.create({
