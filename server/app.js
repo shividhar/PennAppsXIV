@@ -5,6 +5,7 @@ var hat = require('hat');
 var rack = hat.rack(16, 16, 2);
 var bodyParser = require('body-parser');
 var https = require('https');
+var nexmoConfig = requires('config');
 
 var express = require('express');
 var app = express();
@@ -22,6 +23,47 @@ app.post('/signin', function(req, res){
 	console.log("SIGNIN: ", req.body);
 	if (req.body.username && req.body.password)
 		isValidPassword(req.body.username, req.body.password, res);
+});
+
+app.post('events/notify/:id', function (req, res) {
+	console.log("NOTIFY: ", req.body);
+	var contacts = JSON.parse(req.body.contacts);
+	for (int i = 0; i < contacs.length; i++) {
+		var data = JSON.stringify({
+			api_key: nexmoConfig.API_KEY,
+			api_secret: nexmoConfig.API_SECRET,
+			to: contacts.number,
+			from: nexmoConfig.ORIGIN_NUMBER,
+			text: 'You got invited fam'
+		});
+
+		var options = {
+			host: nexmoConfig.SMS_HOST,
+			path: nexmoConfig.SMS_PATH,
+			port: nexmoConfig.SMS_PORT,
+			method: 'POST',
+			headers: {
+   				'Content-Type': 'application/json',
+   				'Content-Length': Buffer.byteLength(data)
+			}
+		};
+
+		var req = https.request(options);
+		req.write(data);
+		req.end();
+
+		var responseData = '';
+		req.on('response', function(res){
+			res.on('data', function(chunk){
+		  		responseData += chunk;
+		  	});
+
+		 	res.on('end', function(){
+		   		console.log(resp.json(JSON.parse(responseData)));
+		 	});
+		});
+	}
+	resp.end("done sending sms");
 });
 
 app.get('/user/:username/events', function(req, resp){

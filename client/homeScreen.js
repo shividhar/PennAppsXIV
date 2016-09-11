@@ -3,7 +3,7 @@ import { AppRegistry, Text, View } from 'react-native';
 
 import CreateEventButton from './createEventButton';
 import ViewEventButton from './viewEventsButton';
-import ViewFriendButton from './viewFriendsButton';
+import JoinEventButton from './joinEventButton';
 
 export default class HomeScreen extends Component {
 	render() {
@@ -12,7 +12,7 @@ export default class HomeScreen extends Component {
 	      		<Text>Hello world!</Text>
 	      		<CreateEventButton />
 	      		<ViewEventButton />
-	      		<ViewFriendButton />
+	      		<JoinEventButton />
 	      	</View>
 	    );
   	}

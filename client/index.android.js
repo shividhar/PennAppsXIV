@@ -13,18 +13,20 @@ import {
   StyleSheet,
   BackAndroid,
   Alert,
-  Animated
+  Animated,
+  Text,
+  TouchableHighlight
 } from 'react-native';
 
 import SplashPage from './SplashPage';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
-import Animation from './animation';
+// import NavBar from './NavBar';
 
 import HomeScreen from './homeScreen';
 
 import CreateEventScreen from './createEventScreen';
-import ViewAllFriendsScreen from './viewAllFriendsScreen';
+import JoinEventScreen from './joinEventScreen';
 import ViewAllEventsScreen from './viewAllEventsScreen';
 
 
@@ -46,10 +48,15 @@ class AwesomeProject extends Component {
           initialRoute={{id: "splash"}}
           configureScene={() => Navigator.SceneConfigs.FadeAndroid}
           renderScene={this.navigatorRenderScene}
+          // navigationBar={
+          //   <NavigationBar
+          //     routeMapper={NavBar}
+          //     style={styles.container}
+          //   />
+          // }
         />
     )
   }
-
     navigatorRenderScene(route, navigator){
       _navigator = navigator;
       switch(route.id) {

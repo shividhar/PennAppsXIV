@@ -5,7 +5,8 @@ import {
   View,
   TouchableHighlight,
   Alert,
-  TextInput
+  TextInput,
+  Image
 } from 'react-native';
 
 
@@ -21,25 +22,35 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <View style={{flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-        <TextInput
-          value={this.state.username}
-          onChangeText={username => this.setState({username})}
-          onSubmitEditing={(event) => {this.refs.password.focus();}}
-        />
-
-        <TextInput
-          ref="password"
-          value={this.state.password}
-          onChangeText={password => this.setState({password})}
-          secureTextEntry={true}
-          onSubmitEditing={this._submitForm}
-        />
-
-        <TouchableHighlight onPress={this._submitForm}>
-          <Text>Login</Text>
-        </TouchableHighlight>
-      </View>
+      <Image style={styles.backgroundImage} source={{uri: 'http://i.imgur.com/NaOB5KV.jpg'}}>
+        <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+          <View style={styles.inputFieldHolder}>
+             <TextInput
+              placeholder="Username"
+              style={styles.inputFields}
+              onChangeText={(username) => this.setState({username})}
+              value={this.state.username}
+              onSubmitEditing={(event) => {this.refs.password.focus();}}
+            />
+          </View>
+          <View style={styles.inputFieldHolder}>
+             <TextInput
+              ref="password"
+              placeholder="Password"
+              style={styles.inputFields}
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password}
+              onSubmitEditing={this._submitForm}
+            />
+          </View>
+          <View style={styles.submitButtonHolder}>
+            <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}>
+              <Text style={{fontSize: 15, color: 'white'}}>Login</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Image>
     )
   }
 
@@ -78,10 +89,44 @@ export default class SignIn extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
+    width: undefined,
+    height: undefined,
+    backgroundColor:'rgba(0,0,0,0.6)',
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
+  },
+  inputFieldHolder: {
+    height: 40, 
+    width: 200, 
+    backgroundColor: 'rgba(255,255,255,0.6)', 
+    borderColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 3,
+    margin: 5
+  },
+  inputFields: {
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    flex: 1, 
+    width: undefined, 
+    height: undefined, 
+    margin: 1
+  },
+  submitButtonHolder: {
+    height: 40, 
+    width: 200, 
+    backgroundColor: 'rgba(255, 126, 0, 0.6)',
+    borderColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 3,
+    margin: 5
+  },
+  submitButton: {
+    backgroundColor: 'rgba(255, 126, 0, 0.6)',
+    flex: 1, 
+    width: undefined, 
+    height: undefined, 
+    margin: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
