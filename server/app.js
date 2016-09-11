@@ -14,8 +14,8 @@ var serv = require('http').Server(app);
 
 app.post('/signup', function(req, res){
 	console.log("SIGNUP: ", req.body);
-	if (req.body.username && req.body.password) 
-		isUsernameTaken(req.body.username, req.body.password, res);
+	if (req.body.username && req.body.password && req.body.phoneNumber) 
+		isUsernameTaken(req.body.username, req.body.password, req.body.phoneNumber, res);
 });
 
 app.post('/signin', function(req, res){
@@ -137,21 +137,21 @@ var isValidPassword = function(username, password, resp){
 	});
 }
 
-var isUsernameTaken = function(username, password, resp){
+var isUsernameTaken = function(username, password, phone, resp){
 	db.account.find({username:username},function(err,res){
 		if(res.length > 0)
 			return resp.json({"res": 0});
 		else{
-			addUser(username, password);
+			addUser(username, password, phone);
 			return resp.json({"res": 1});
 		}
 	});
 }
 
-var addUser = function(username, password){
+var addUser = function(username, password, phone){
 	var userSalt = bcrypt.genSaltSync(10);
 	var hashedPassword = bcrypt.hashSync(password, userSalt);
-	db.account.insert({username:username, password:hashedPassword, salt:userSalt},function(err){console.log(err)});
+	db.account.insert({username:username, phone:phone, password:hashedPassword, salt:userSalt},function(err){console.log(err)});
 }
 
 var createEvent = function(username, name, location, time){
