@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, Image, StyleSheet } from 'react-native';
+import {Text, View, Image, StyleSheet, TouchableHighlight, Alert } from 'react-native';
 
 import CreateEventButton from './createEventButton';
 import ViewEventButton from './viewEventsButton';
@@ -7,57 +7,47 @@ import JoinEventButton from './joinEventButton';
 import LogOutButton from './logOutButton';
 
 export default class HomeScreen extends Component {
-	_navigate = (property) => {
-	    if(property == "in"){
-	    	this.props.navigator.push({
+	render() {
+	    return (
+			<View style={{flex: 1}}>
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(167,173,186, 0.6)'}]} onPress={this._navigate.bind(this, "create")}>
+					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
+				</TouchableHighlight>
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(101,115,126, 0.6)'}]} onPress={this._navigate.bind(this, "join")}>
+					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
+				</TouchableHighlight>
+				<TouchableHighlight style={[styles.homeEventButton, {backgroundColor: 'rgba(79,91,102, 0.6)'}]} onPress={this._navigate.bind(this, "view")}>
+					<Image source={{uri: 'http://i.imgur.com/b6qlwh5.png'}}/>
+				</TouchableHighlight>
+			</View>
+	    );
+  	}
+
+  	_navigate = (property) => {
+	    if(property == "create"){
+	      this.props.navigator.push({
 	        id: "createEvent",
 	        transitionType: "PushFromLeft"
 	      })
-	    }
-	    else if(property == "up"){
+	    }else if(property == "join"){
 	      this.props.navigator.push({ 
-	        id: "signup",
-	        transitionType: "PushFromRight"
+	        id: "joinEvent",
+	        transitionType: "PushFromLeft"
+	      })
+	    }else if(property == "view"){
+	      this.props.navigator.push({ 
+	        id: "viewEvents",
+	        transitionType: "PushFromLeft"
 	      })
 	    }
-	}
-	render() {
-	    return (
-	    	<View style={{flex: 1}}>
-      			<Image style={styles.backgroundImage} source={{uri: 'http://i.imgur.com/4EnsdPp.jpg'}}>
-		      		<View style={[styles.viewButtons, {backgroundColor: 'rgb(217,83,79)'}]}>
-		      		</View>
-		      	</Image>
-      			<Image style={styles.backgroundImage} source={{uri: 'http://i.imgur.com/hdf9Ak3.jpg'}}>
-		      		<View style={[styles.viewButtons, {backgroundColor: 'rgb(249,249,249)'}]}>
-		      		</View>
-		      	</Image>
-      			<Image style={styles.backgroundImage} source={{uri: 'http://i.imgur.com/zHlhYSU.jpg'}}>
-		      		<View style={[styles.viewButtons, {backgroundColor: 'rgb(92,184,92)'}]}>
-		      		</View>
-		      	</Image>
-		     </View>
-	    	/*<View style={{alignItems: "center"}}>
-	      		<Text>Hello world!</Text>
-	      		<CreateEventButton />
-	      		<ViewEventButton />
-	      		<JoinEventButton />
-	      		<LogOutButton />
-	      	</View>*/
-	    );
-  	}
+	  }
 } 
  
 const styles = StyleSheet.create({
-  backgroundImage: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,1)'
-  },
-  viewButtons: {
-    flex: 1,
-    opacity: 0.8,
-    width: undefined,
-    height: undefined,
+  homeEventButton: {
+    flex: 1, 
+    width: undefined, 
+    height: undefined, 
     justifyContent: 'center',
     alignItems: 'center'
   }

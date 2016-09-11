@@ -128,13 +128,13 @@ const styles = StyleSheet.create({
   submitButtonHolder: {
     height: 40, 
     width: 200, 
-    backgroundColor: 'rgba(113, 208, 0, 0.6)',
-    borderColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: 'rgba(0,91,150, 0.6)',
+    borderColor: 'rgba(0,91,150, 0.6)',
     borderRadius: 3,
     margin: 5
   },
   submitButton: {
-    backgroundColor: 'rgba(113, 208, 0, 0.6)',
+    backgroundColor: 'rgba(0,91,150, 0.6)',
     flex: 1, 
     width: undefined, 
     height: undefined, 

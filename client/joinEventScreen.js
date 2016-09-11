@@ -13,7 +13,7 @@ export default class JoinEventScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			eventCode = ''
+			eventCode:''
 		}
 	}
 
@@ -50,39 +50,34 @@ export default class JoinEventScreen extends Component {
 			    }
 			  })
 			  .done()    // do some stuff here…
-			}
-			else{
-			 	Alert.alert("Please make sure both password fields are equal.")
-			}
-			else{
+			}else{
 				Alert.alert("Please fill in all fields.")
 			}
 		}
 	};
 
 	render() {
-		<View style={{alignItems: "center"}}>
-          <View style={styles.inputFieldHolder}>
-             <TextInput
-              placeholder="Event Code"
-              style={styles.inputFields, alignItems:"center"}
-              onChangeText={(eventCode) => this.setState({eventCode})}
-              value={this.state.eventCode}
-             />
-          </View>
-          
-          <View style={styles.submitButtonHolder}>
-            <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}> 
-              <Text style={{fontSize: 15, color: 'white'}}>Join Event</Text>
-            </TouchableHighlight> 
-          </View>
-
-          <View style={styles.submitButtonHolder}>
-            <TouchableHighlight style={styles.submitButton} onPress={this.returnHome}>
-              <Text style={{fontSize: 15, color: 'white'}}>Back</Text>
-            </TouchableHighlight>
-          </View>
-
-        </View>
+		return(
+			<View style={{alignItems: "center"}}>
+	          <View style={styles.inputFieldHolder}>
+	             <TextInput
+	              placeholder="Event Code"
+	              style={[styles.inputFields, {alignItems:"center"}]}
+	              onChangeText={(eventCode) => this.setState({eventCode})}
+	              value={this.state.eventCode}
+	             />
+	          </View>
+	          
+	          <View style={styles.submitButtonHolder}>
+	            <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}> 
+	              <Text style={{fontSize: 15, color: 'black'}}>Join Event</Text>
+	            </TouchableHighlight> 
+	          </View>
+	        </View>
+        )
 	}
 }
+
+const styles = StyleSheet.create({
+
+})

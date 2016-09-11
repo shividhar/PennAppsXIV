@@ -1,5 +1,5 @@
-// import React, { Component } from 'react';
-// import { AppRegistry, Text, View, Stylesheet, TouchableHighlight } from 'react-native';
+import React, { Component } from 'react';
+import {Text, View, StyleSheet, TouchableHighlight } from 'react-native';
 export default class ViewAllEventsScreen extends Component {
 	returnHome() {
 		//Write code to return id to homeScreen
@@ -16,3 +16,7 @@ export default class ViewAllEventsScreen extends Component {
 		)
 	};
 }
+
+const styles = StyleSheet.create({
+	
+})

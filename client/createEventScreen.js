@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, Stylesheet, TouchableHighlight } from 'react-native';
+import { AppRegistry, Text, View, Stylesheet, TouchableHighlight, TextInput } from 'react-native';
 
 export default class CreateEventScreen extends Component {
 	constructor(props) {
@@ -12,45 +12,7 @@ export default class CreateEventScreen extends Component {
 		}
 
 	}
-	returnHome(){
-		//Change id to go back to homeScreen
-	}
-
-    _submitForm = () => { //WE NEED TO CHANGE THIS SOON TO BECOME SUBMIT EVENT INSTEAD OF SUBMIT ACCOUNT INFO
-    	var username = this.state.username;
-    	var password = this.state.password;
-    	var confirmPassword = this.state.confirmPassword;
-
-		if(username != "" && password != "" && confirmPassword != ""){
-			if(password == confirmPassword){
-			    fetch("http://10.103.231.97:3000/signup", {
-			      method: "POST",
-			      headers: {
-			        'Accept': 'application/json',
-			        'Content-Type': 'application/json',
-			      },
-			      body: JSON.stringify({
-			        username: username,
-			        password: password,
-			      })
-			    })
-			  .then((response) => response.json())
-			  .then((responseJson) => {
-			    if(responseJson.res){
-			      //CHANGE THIS TO MAIN PAGE
-			      this.props.navigator.replacePreviousAndPop({"id": "signin"});
-			      //CHANGE THIS TO MAIN PAGE
-			    }else{
-			      Alert.alert("Sorry, username taken.")
-			    }
-			  })
-			  .done()    // do some stuff here…
-			}else{
-				Alert.alert("Please fill in all fields.")
-			}
-		}
-	};
-
+	
 	render() {
 		return (
 		  	<View style={{flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
@@ -87,10 +49,42 @@ export default class CreateEventScreen extends Component {
 			    <TouchableHighlight onPress={this._submitForm}>
 			     	<Text>Hit up friends</Text>
 			    </TouchableHighlight>
-			    <TouchableHighlight onPress={this.returnHome}>
-			     	<Text>Back</Text>
-			    </TouchableHighlight>
 		  </View>
 		)
 	}
+
+    _submitForm = () => { //WE NEED TO CHANGE THIS SOON TO BECOME SUBMIT EVENT INSTEAD OF SUBMIT ACCOUNT INFO
+    	var username = this.state.username;
+    	var password = this.state.password;
+    	var confirmPassword = this.state.confirmPassword;
+
+		if(username != "" && password != "" && confirmPassword != ""){
+			if(password == confirmPassword){
+			    fetch("http://10.103.231.97:3000/signup", {
+			      method: "POST",
+			      headers: {
+			        'Accept': 'application/json',
+			        'Content-Type': 'application/json',
+			      },
+			      body: JSON.stringify({
+			        username: username,
+			        password: password,
+			      })
+			    })
+			  .then((response) => response.json())
+			  .then((responseJson) => {
+			    if(responseJson.res){
+			      //CHANGE THIS TO MAIN PAGE
+			      this.props.navigator.replacePreviousAndPop({"id": "signin"});
+			      //CHANGE THIS TO MAIN PAGE
+			    }else{
+			      Alert.alert("Sorry, username taken.")
+			    }
+			  })
+			  .done()    // do some stuff here…
+			}else{
+				Alert.alert("Please fill in all fields.")
+			}
+		}
+	};
 }
