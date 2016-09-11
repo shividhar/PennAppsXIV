@@ -23,33 +23,44 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <Image style={styles.backgroundImage} source={{uri: 'http://www.planetware.com/photos-large/CAY/caribbean-best-beaches-pink-sand-beach.jpg'}}>
+      <Image style={styles.backgroundImage} source={{uri: 'http://i.imgur.com/NaOB5KV.jpg'}}>
         <View style={{flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-          <TextInput
-            value={this.state.username}
-            onChangeText={username => this.setState({username})}
-            onSubmitEditing={(event) => {this.refs.password.focus();}}
-          />
-
-          <TextInput
-            ref="password"
-            value={this.state.password}
-            onChangeText={password => this.setState({password})}
-            secureTextEntry={true}
-            onSubmitEditing={(event) => {this.refs.confirmPassword.focus();}}
-          />
-
-          <TextInput
-            ref="confirmPassword"
-            value={this.state.confirmPassword}
-            onChangeText={confirmPassword => this.setState({confirmPassword})}
-            secureTextEntry={true}
-            onSubmitEditing={this._submitForm}
-          />
-
-          <TouchableHighlight onPress={this._submitForm}>
-            <Text>Submit</Text>
-          </TouchableHighlight>
+          <View style={styles.inputFieldHolder}>
+             <TextInput
+              placeholder="Username"
+              style={styles.inputFields}
+              onChangeText={(username) => this.setState({username})}
+              value={this.state.username}
+              onSubmitEditing={(event) => {this.refs.password.focus();}}
+            />
+          </View>
+          <View style={styles.inputFieldHolder}>
+             <TextInput
+              ref="password"
+              placeholder="Password"
+              style={styles.inputFields}
+              secureTextEntry={true}
+              onChangeText={(password) => this.setState({password})}
+              value={this.state.password}
+              onSubmitEditing={(event) => {this.refs.confirmPassword.focus();}}
+            />
+          </View>
+          <View style={styles.inputFieldHolder}>
+             <TextInput
+              ref="confirmPassword"
+              placeholder="Confim Password"
+              style={styles.inputFields}
+              secureTextEntry={true}
+              onChangeText={(confirmPassword) => this.setState({confirmPassword})}
+              value={this.state.confirmPassword}
+              onSubmitEditing={this._submitForm}
+            />
+          </View>
+          <View style={styles.submitButtonHolder}>
+            <TouchableHighlight style={styles.submitButton} onPress={this._submitForm}>
+              <Text style={{fontSize: 15, color: 'white'}}>Login</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       </Image>
     )
@@ -76,11 +87,9 @@ export default class SignUp extends Component {
           .then((response) => response.json())
           .then((responseJson) => {
             if(responseJson.res){
-              this.props.navigator.pop();
-              Alert.alert("Signin Successful")
-              this.props.navigator.push({
-                id: "homescreen"
-              })
+              //CHANGE THIS TO MAIN PAGE
+              this.props.navigator.replace({"id": "signin"});
+              //CHANGE THIS TO MAIN PAGE
             }else{
               Alert.alert("Sorry, username taken.")
             }
@@ -104,22 +113,36 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  container: {
-    flex: 1,
+  inputFieldHolder: {
+    height: 40, 
+    width: 200, 
+    backgroundColor: 'rgba(255,255,255,0.6)', 
+    borderColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 3,
+    margin: 5
+  },
+  inputFields: {
+    backgroundColor: 'rgba(255,255,255,0.6)',
+    flex: 1, 
+    width: undefined, 
+    height: undefined, 
+    margin: 1
+  },
+  submitButtonHolder: {
+    height: 40, 
+    width: 200, 
+    backgroundColor: 'rgba(113, 208, 0, 0.6)',
+    borderColor: 'rgba(255,255,255,0.6)',
+    borderRadius: 3,
+    margin: 5
+  },
+  submitButton: {
+    backgroundColor: 'rgba(113, 208, 0, 0.6)',
+    flex: 1, 
+    width: undefined, 
+    height: undefined, 
+    margin: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  button: {
+    alignItems: 'center'
   }
 });
